@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>React Basics</title>
+</head>
+
+<body>
+  <div class="js-container"></div>
+
+  <script src="https://unpkg.com/supersimpledev/react.js"></script>
+  <script src="https://unpkg.com/supersimpledev/react-dom.js"></script>
+
+  <script src="https://unpkg.com/supersimpledev/babel.js"></script> <!--first load Babel external library -->
+  <script type="text/babel"> //This attribute tells Babel to translate all the code here into normal Javascript. Since web browsers don't understand JSX.
+    const button = <button>hello</button>; //sample of JSX code, shortcut version of Vanilla JS.
+    const paragraph = <p>paragraph of text</p>;
+
+    const div = (
+      <div>
+        <button>hello</button>
+        <p>paragraph 0f text {2 + 2}</p>
+      </div>
+    );
+    //Use div if you're using multiple elements.
+
+    const container = document.querySelector('.js-container');
+
+    ReactDOM.createRoot(container).render(div);
+  </script>
+</body>
+
+</html>
+
+<!--
+
+What is React? an external library that contains pre-written code 
+-->

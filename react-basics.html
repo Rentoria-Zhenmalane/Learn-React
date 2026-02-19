@@ -16,6 +16,10 @@
     const button = <button>hello</button>; //sample of JSX code, shortcut version of Vanilla JS.
     const paragraph = <p>paragraph of text</p>;
 
+    const productCost = 10 * (8 + 8);
+    const shippingCost = 5;
+    const totalCost = productCost + shippingCost;
+
     const div = (
       <div>
         <p> Product Cost: $ {productCost}</p>
@@ -25,9 +29,7 @@
     );
     //Use div if you're using multiple elements.
 
-    const productCost = 10 * (8 + 8);
-    const shippingCost = 5;
-    const totalCost = productCost + shippingCost;
+
 
 
     const container = document.querySelector('.js-container');

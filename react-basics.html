@@ -24,9 +24,13 @@
     );
     //Use div if you're using multiple elements.
 
+    const productCost = 10 * (8 + 8);
+    const shippingCost = 5;
+    const p = <p> Product Cost: $ {productCost}</p>;
+
     const container = document.querySelector('.js-container');
 
-    ReactDOM.createRoot(container).render(div);
+    ReactDOM.createRoot(container).render(p);
   </script>
 </body>
 

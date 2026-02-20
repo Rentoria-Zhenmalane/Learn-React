@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>Chatbot</title>
+</head>
+
+<body>
+  <div class="js-container"></div>
+
+  <script src="https://unpkg.com/supersimpledev/react.js"></script>
+  <script src="https://unpkg.com/supersimpledev/react-dom.js"></script>
+
+  <script src="https://unpkg.com/supersimpledev/babel.js"></script> <!--first load Babel external library -->
+  <script type="text/babel"> //This attribute tells Babel to translate all the code here into normal Javascript. Since web browsers don't understand JSX.
+
+    function ChatInput() {
+      return (
+        <> {/*Using to div to group multiple elements actually create a bunch of extra div. How to Avoid that? Using a fragment*/}
+          <input />
+          <button>Send</button>
+        </>
+
+      );
+    }
+
+
+    const div = (
+      <>
+        { /*{ChatInput()}
+          <ChatInput></ChatInput> Called as Component Syntax, does the same thing as the code above.*/ }
+
+        <ChatInput /> {/* Can also do this kind of syntax if element has no value. Called as Self closing  */}
+      </>
+    );
+    //Use div if you're using multiple elements.
+
+    ReactDOM.createRoot(container).render(div);
+  </script>
+</body>
+
+</html>
+
+<!--
+
+-What is React? an external library that contains pre-written code
+
+- When building a website split up the website into pieces. So we can work on small pieces of the website at a time.
+
+-We can create our own HTML element in React.
+-->

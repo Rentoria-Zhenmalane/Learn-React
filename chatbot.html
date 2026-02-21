@@ -17,7 +17,7 @@
     function ChatInput() {
       return (
         <> {/*Using to div to group multiple elements actually create a bunch of extra div. How to Avoid that? Using a fragment*/}
-          <input />
+          <input placeholder="Send a message to chatbot" size="30" />
           <button>Send</button>
         </>
 
@@ -25,7 +25,7 @@
     }
 
 
-    const div = (
+    const app = (
       <>
         { /*{ChatInput()}
           <ChatInput></ChatInput> Called as Component Syntax, does the same thing as the code above.*/ }
@@ -34,8 +34,8 @@
       </>
     );
     //Use div if you're using multiple elements.
-
-    ReactDOM.createRoot(container).render(div);
+    const container = document.querySelector('.js-container');
+    ReactDOM.createRoot(container).render(app);
   </script>
 </body>
 

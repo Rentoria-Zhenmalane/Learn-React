@@ -24,6 +24,17 @@
       );
     }
 
+    function ChatMessage(props) {
+      {/*-Components are designed to be reusable
+        - Props short for properties, contains all the properties of an attribute.*/ }
+      const message = props.message;
+      return (
+        <div>
+          {message}
+          <img src="images/user.png" width="50" />
+        </div>
+      );
+    };
 
     const app = (
       <>
@@ -31,6 +42,10 @@
           <ChatInput></ChatInput> Called as Component Syntax, does the same thing as the code above.*/ }
 
         <ChatInput /> {/* Can also do this kind of syntax if element has no value. Called as Self closing  */}
+        <ChatMessage message="hello" sender="user" />
+        <ChatMessage message="Hello! How can I help you?" sender="robot" />
+        <ChatMessage message="Can you get me todays date?" sender="user" />
+        <ChatMessage message="Today is February 21" sender="robot" />
       </>
     );
     //Use div if you're using multiple elements.

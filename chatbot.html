@@ -17,40 +17,71 @@
     function ChatInput() {
       return (
         <> {/*Using to div to group multiple elements actually create a bunch of extra div. How to Avoid that? Using a fragment*/}
-          <input placeholder="Send a message to chatbot" size="30" />
+          <input
+            placeholder="Send a message to chatbot"
+            size="30" />
           <button>Send</button>
         </>
 
       );
     }
 
-    function ChatMessage(props) {
+    function ChatMessage({ message, sender })// also called destructuring, even shorter syntax in JS.
+    {
       {/*-Components are designed to be reusable
         - Props short for properties, contains all the properties of an attribute.*/ }
-      const message = props.message;
+      //const {message, sender} = props;  Called as destructuring
+      /*
+            if (sender === 'robot') {
+              return (
+                <div>
+                  <img src="images/robot.png" width="50" />
+                  {message}
+                </div>
+              );
+            }
+        This code is the longcut version of code below.
+      */
       return (
         <div>
+          {sender === 'robot' &&
+            <img src="images/robot.png" width="50" />} {/*Called as Guard Operator, If left is true then do the right. It's just like an if statement but in JSX.*/}
           {message}
-          <img src="images/user.png" width="50" />
+          {sender === 'user' &&
+            <img src="images/user.png" width="50" />}
+
         </div>
       );
     };
 
-    const app = (
-      <>
-        { /*{ChatInput()}
-          <ChatInput></ChatInput> Called as Component Syntax, does the same thing as the code above.*/ }
+    function App() {
+      return (
+        <>
+          { /*{ChatInput()}
+              <ChatInput></ChatInput> Called as Component Syntax, does the same thing as the code above.*/ }
 
-        <ChatInput /> {/* Can also do this kind of syntax if element has no value. Called as Self closing  */}
-        <ChatMessage message="hello" sender="user" />
-        <ChatMessage message="Hello! How can I help you?" sender="robot" />
-        <ChatMessage message="Can you get me todays date?" sender="user" />
-        <ChatMessage message="Today is February 21" sender="robot" />
-      </>
-    );
+          <ChatInput /> {/* Can also do this kind of syntax if element has no value. Called as Self closing  */}
+          <ChatMessage
+            message="hello"
+            sender="user" />
+          <ChatMessage
+            message="Hello! How can I help you?"
+            sender="robot" />
+          <ChatMessage
+            message="Can you get me todays date?"
+            sender="user" />
+          <ChatMessage
+            message="Today is February 21"
+            sender="robot" />{/*Reused ChatMessage component here.*/}
+        </>
+      );
+    }
+    //App Component represent the entire application.
+
+
     //Use div if you're using multiple elements.
     const container = document.querySelector('.js-container');
-    ReactDOM.createRoot(container).render(app);
+    ReactDOM.createRoot(container).render(<App />); // This is where React renders everything by inserting the App component.
   </script>
 </body>
 
@@ -63,4 +94,6 @@
 - When building a website split up the website into pieces. So we can work on small pieces of the website at a time.
 
 -We can create our own HTML element in React.
+
+NEXT: 1:27
 -->

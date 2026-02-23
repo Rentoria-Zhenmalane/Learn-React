@@ -55,27 +55,41 @@
     };
 
     function ChatMessages() {
+      const array = React.useState( //state is an important JS feature. It updates HTML when we update the data.
+        [{
+          message: 'hello Chatbot',
+          sender: 'user',
+          id: 'id1'
+        }, {
+          message: 'Hello! How can I help you?',
+          sender: 'robot',
+          id: 'id2'
+        }, {
+          message: 'Can you get me todays date?',
+          sender: 'user',
+          id: 'id3'
+        }, {
+          message: 'Today is February 21',
+          sender: 'robot',
+          id: 'id4'
+        }]
+      ); //useState is updates 
+      const chatmsgs = array[0]; // current data of useState
+      const setChatMessages = array[1]; //Function that updates the data
 
-      const chatMessages = [{
-        message: 'hello Chatbot',
-        sender: 'user',
-        id: 'id1'
-      }, {
-        message: 'Hello! How can I help you?',
-        sender: 'robot',
-        id: 'id2'
-      }, {
-        message: 'Can you get me todays date?',
-        sender: 'user',
-        id: 'id3'
-      }, {
-        message: 'Today is February 21',
-        sender: 'robot',
-        id: 'id4'
-      }];
+      function sendMessage() {
+        chatMessages.push({
+          message: 'test',
+          sender: 'user',
+          id: crypto.randomUUID() //JS code that generates unique ID string
+        });
+
+        console.log(chatMessages);
+      }
 
       return (
         <>
+          <button onClick={sendMessage}>Send message</button>
           {chatMessages.map((chatMessage) => {
             return (
               <ChatMessage

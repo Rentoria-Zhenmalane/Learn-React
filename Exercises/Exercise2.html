@@ -13,22 +13,31 @@
 
   <script src="https://unpkg.com/supersimpledev/babel.js"></script> <!--first load Babel external library -->
   <script type="text/babel"> //This attribute tells Babel to translate all the code here into normal Javascript. Since web browsers don't understand JSX.
-    const button = <button>hello</button>; //sample of JSX code, shortcut version of Vanilla JS.
-    const paragraph = <p>paragraph of text</p>;
 
-    const productCost = 10 * (8 + 8);
-    const shippingCost = 5;
-    const totalCost = productCost + shippingCost;
+    function App() {
+      return (
+        <>
+          <p>Hello, Welcome to my Website!</p>
+          <LoginForm />
+        </>
+      )
+    }
 
-    const div = (
-      <div>
-        <p> Product Cost: $ {productCost}</p>
-        <p> Shipping Cost: $ {shippingCost} </p>
-        <p>Total Cost: ${totalCost} </p>
-        <button>Place your order</button>
-      </div>
-    );
-    //Use div if you're using multiple elements.
+    function LoginForm() {
+      return (
+        <>
+          <div>
+            <input placeholder="Email"></input>
+          </div>
+          <div>
+            <input placeholder="Password"></input>
+          </div>
+          <button>Login</button>
+          <button>Sign Up</button>
+
+        </>
+      )
+    }
 
 
     const container = document.querySelector('.js-container');

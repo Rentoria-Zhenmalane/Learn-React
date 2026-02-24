@@ -14,9 +14,24 @@
   <script src="https://unpkg.com/supersimpledev/babel.js"></script> <!--first load Babel external library -->
   <script type="text/babel"> //This attribute tells Babel to translate all the code here into normal Javascript. Since web browsers don't understand JSX.
 
-    function ChatInput() {
+    function ChatInput({ chatMsg, setChatMessages }) {
+      const [inputText, setInputText] = React.useState('');
+
       function saveInputText(event) { //event conatins details about the change
-        console.log(event.target.value); //React gives us access to the input automatically using .target. To get text inside input use .value.
+        setInputText(event.target.value); //React gives us access to the input automatically using .target. To get text inside input use .value. After accessing then getting text inside input we want to use updater function(setInputText) to update and save it into inputText.
+      }
+
+      function sendMessage() {
+        setChatMessages([
+          ...chatMsg,//Called as Spread Operator, in React modifying data is a must not. So use Spread operator to copy and modify the data.
+          {
+            message: inputText,
+            sender: 'user',
+            id: crypto.randomUUID()// generates unique id
+          } // This object adds new data to chatMsg
+        ]);
+
+        setInputText(''); //why use updater function instead of inputText? inputText is just the data/value, in React you can't mutate data directly and also const is in use. An updater function or a setter handles the changes of data/value and updates, that's why it's called updater funtion.  
       }
 
       return (
@@ -25,8 +40,10 @@
             placeholder="Send a message to chatbot"
             size="30"
             onChange={saveInputText} //event handler that runs a function when we change a text inside an <input/>. we use curly brackets here because we wanna save function inside this prop rather than just a string
+            value={inputText} //This is a prop, a controlled input. Means input field's value is controlled by react state. Hence, clears the input whenever pressed send.
           />
-          <button>Send</button>
+          <button
+            onClick={sendMessage}>Send</button>
         </>
 
       );
@@ -60,50 +77,10 @@
       );
     };
 
-    function ChatMessages() {//This function includes all chat related data. Generates all the HTML. This function is an example of component encapsulation.
-
-      const [chatMsg, setChatMessages] = React.useState([{ //useState updates the HTML when we update the data. Destructured it for shorter and cleaner syntax
-
-        message: 'hello Chatbot',
-        sender: 'user',
-        id: 'id1'
-      }, {
-        message: 'Hello! How can I help you?',
-        sender: 'robot',
-        id: 'id2'
-      }, {
-        message: 'Can you get me todays date?',
-        sender: 'user',
-        id: 'id3'
-      }, {
-        message: 'Today is February 21',
-        sender: 'robot',
-        id: 'id4'
-      }]
-      );
-      /*const chatMsg = array[0]; //Initial state of the array.
-      const setChatMessages = array[1]; //Function that updates data. */
-      //const[chatMsg, setChatMessages] = array; //Called Array Destructuring, shortcut of the code above.
-
-
-
-      function sendMessage() {//This is an updater function
-        setChatMessages([
-          ...chatMsg,//Called as Spread Operator, in React modifying data is a must not. So use Spread operator to copy and modify the data.
-          {
-            message: 'test',
-            sender: 'user',
-            id: crypto.randomUUID()// generates unique id
-          } // This object adds new data to chatMsg
-        ]);
-      }
+    function ChatMessages({ chatMsg }) {//This function includes all chat related data. Generates all the HTML. This function is an example of component encapsulation.
 
       return (
         <>
-          <button onClick={sendMessage}>Send Message</button>
-          {/*-onClick is the Event, sendMessage is the Handler
-            -Give the function sendMessage directly to onClick without running it using ()*/}
-
           {chatMsg.map((chatMessage) => {
             return (
               <ChatMessage
@@ -132,14 +109,42 @@
        Insted of saving result in a variable, can just directly insert the result directly into JSX in function ChatMessages
       */}
 
+      const [chatMsg, setChatMessages] = React.useState([{ //useState updates the HTML when we update the data. Destructured it for shorter and cleaner syntax
+
+        message: 'hello Chatbot',
+        sender: 'user',
+        id: 'id1'
+      }, {
+        message: 'Hello! How can I help you?',
+        sender: 'robot',
+        id: 'id2'
+      }, {
+        message: 'Can you get me todays date?',
+        sender: 'user',
+        id: 'id3'
+      }, {
+        message: 'Today is February 21',
+        sender: 'robot',
+        id: 'id4'
+      }]
+      );
+      {/*const chatMsg = array[0]; //Initial state of the array.
+        const setChatMessages = array[1]; 
+        Function that updates data. 
+        const[chatMsg, setChatMessages] = array; //Called Array Destructuring, shortcut of the code above.*/}
+
 
 
       return (
         <>
+
           { /*{ChatInput()}
               <ChatInput></ChatInput> Called as Component Syntax, does the same thing as the code above.*/ }
 
-          <ChatInput /> {/* Can also do this kind of syntax if element has no value. Called as Self closing  
+          <ChatInput
+            chatMsg={chatMsg} //{} = save any type of value inside prop
+            setChatMessages={setChatMessages}
+          /> {/* Can also do this kind of syntax if element has no value. Called as Self closing  
           <ChatMessage
             message="hello"
             sender="user" />
@@ -153,7 +158,9 @@
             message="Today is February 21"
             sender="robot" />{/*Reused ChatMessage component here.*/}
 
-          <ChatMessages />
+          <ChatMessages
+            chatMsg={chatMsg}
+          />
 
         </>
       );

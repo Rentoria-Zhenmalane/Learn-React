@@ -54,9 +54,10 @@
       );
     };
 
-    function ChatMessages() {
+    function ChatMessages() {//This function includes all chat related data. Generates all the HTML. This function is an example of component encapsulation.
 
-      const chatMessages = [{
+      const array = React.useState([{ //useState updates the HTML when we update the data.
+
         message: 'hello Chatbot',
         sender: 'user',
         id: 'id1'
@@ -72,24 +73,30 @@
         message: 'Today is February 21',
         sender: 'robot',
         id: 'id4'
-      }];
+      }]
+      );
+      const chatMsg = array[0]; //Initial state of the array.
+      const setChatMessages = array[1]; //Function that updates data.
 
-      function sendMessage() {
-        chatMessages.push({
-          message: 'test',
-          sender: 'user',
-          id: crypto.randomUUID()
-        });
-        console.log(chatMessages);
+
+      function sendMessage() {//This is an updater function
+        setChatMessages([
+          ...chatMsg,//Called as Spread Operator, in React modifying data is a must not. So use Spread operator to copy and modify the data.
+          {
+            message: 'test',
+            sender: 'user',
+            id: crypto.randomUUID()// generates unique id
+          } // This object adds new data to chatMsg
+        ]);
       }
 
       return (
         <>
           <button onClick={sendMessage}>Send Message</button>
           {/*-onClick is the Event, sendMessage is the Handler
-            -Give the function sendMessage directly to onClick withut running it using ()*/}
+            -Give the function sendMessage directly to onClick without running it using ()*/}
 
-          {chatMessages.map((chatMessage) => {
+          {chatMsg.map((chatMessage) => {
             return (
               <ChatMessage
                 message={chatMessage.message}
@@ -161,6 +168,8 @@
 - When building a website split up the website into pieces. So we can work on small pieces of the website at a time.
 
 -We can create our own HTML element in React.
+
+-React has a very important pattern: The component that owns the state should also control how it changes.
 
 NEXT: 1:27
 -->

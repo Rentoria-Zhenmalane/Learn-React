@@ -15,11 +15,17 @@
   <script type="text/babel"> //This attribute tells Babel to translate all the code here into normal Javascript. Since web browsers don't understand JSX.
 
     function ChatInput() {
+      function saveInputText(event) { //event conatins details about the change
+        console.log(event.target.value); //React gives us access to the input automatically using .target. To get text inside input use .value.
+      }
+
       return (
         <> {/*Using to div to group multiple elements actually create a bunch of extra div. How to Avoid that? Using a fragment*/}
           <input
             placeholder="Send a message to chatbot"
-            size="30" />
+            size="30"
+            onChange={saveInputText} //event handler that runs a function when we change a text inside an <input/>. we use curly brackets here because we wanna save function inside this prop rather than just a string
+          />
           <button>Send</button>
         </>
 
@@ -56,7 +62,7 @@
 
     function ChatMessages() {//This function includes all chat related data. Generates all the HTML. This function is an example of component encapsulation.
 
-      const array = React.useState([{ //useState updates the HTML when we update the data.
+      const [chatMsg, setChatMessages] = React.useState([{ //useState updates the HTML when we update the data. Destructured it for shorter and cleaner syntax
 
         message: 'hello Chatbot',
         sender: 'user',
@@ -75,8 +81,10 @@
         id: 'id4'
       }]
       );
-      const chatMsg = array[0]; //Initial state of the array.
-      const setChatMessages = array[1]; //Function that updates data.
+      /*const chatMsg = array[0]; //Initial state of the array.
+      const setChatMessages = array[1]; //Function that updates data. */
+      //const[chatMsg, setChatMessages] = array; //Called Array Destructuring, shortcut of the code above.
+
 
 
       function sendMessage() {//This is an updater function
@@ -171,5 +179,5 @@
 
 -React has a very important pattern: The component that owns the state should also control how it changes.
 
-NEXT: 1:27
+NEXT: 2:10
 -->

@@ -11,6 +11,8 @@
   <script src="https://unpkg.com/supersimpledev/react.js"></script>
   <script src="https://unpkg.com/supersimpledev/react-dom.js"></script>
 
+  <script src="https://unpkg.com/supersimpledev/chatbot.js"></script>
+
   <script src="https://unpkg.com/supersimpledev/babel.js"></script> <!--first load Babel external library -->
   <script type="text/babel"> //This attribute tells Babel to translate all the code here into normal Javascript. Since web browsers don't understand JSX.
 
@@ -28,7 +30,19 @@
             message: inputText,
             sender: 'user',
             id: crypto.randomUUID()// generates unique id
-          } // This object adds new data to chatMsg
+          }// This object adds new data to chatMsg
+        ]);
+
+        const response = Chatbot.getResponse(inputText);
+        console.log(response);
+
+        setChatMessages([
+          ...chatMsg,//Called as Spread Operator, in React modifying data is a must not. So use Spread operator to copy and modify the data.
+          {
+            message: response,
+            sender: 'robot',
+            id: crypto.randomUUID()// generates unique id
+          }// This object adds new data to chatMsg
         ]);
 
         setInputText(''); //why use updater function instead of inputText? inputText is just the data/value, in React you can't mutate data directly and also const is in use. An updater function or a setter handles the changes of data/value and updates, that's why it's called updater funtion.  

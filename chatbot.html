@@ -24,20 +24,22 @@
       }
 
       function sendMessage() {
-        setChatMessages([
+        const newChatMessages = [
           ...chatMsg,//Called as Spread Operator, in React modifying data is a must not. So use Spread operator to copy and modify the data.
           {
             message: inputText,
             sender: 'user',
             id: crypto.randomUUID()// generates unique id
           }// This object adds new data to chatMsg
-        ]);
+        ]
+
+        setChatMessages(newChatMessages);
 
         const response = Chatbot.getResponse(inputText);
         console.log(response);
 
         setChatMessages([
-          ...chatMsg,//Called as Spread Operator, in React modifying data is a must not. So use Spread operator to copy and modify the data.
+          ...newChatMessages,//Called as Spread Operator, in React modifying data is a must not. So use Spread operator to copy and modify the data.
           {
             message: response,
             sender: 'robot',
@@ -199,6 +201,8 @@
 -We can create our own HTML element in React.
 
 -React has a very important pattern: The component that owns the state should also control how it changes.
+
+-State in React doesn’t update instantly, React schedules it.
 
 NEXT: 2:10
 -->

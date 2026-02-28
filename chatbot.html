@@ -3,6 +3,84 @@
 
 <head>
   <title>Chatbot</title>
+  <style>
+    body {
+      font-family: Arial;
+      margin: 0px;
+      /* to avoid extra spaces in the web page */
+    }
+
+    .send-button {
+      background-color: rgb(25, 135, 84);
+      color: white;
+      padding: 12px 20px;
+      margin-left: 10px;
+      border: none;
+      border-radius: 10px;
+      font-size: 15px;
+      cursor: pointer;
+    }
+
+    .chat-input {
+      padding: 12px 20px;
+      border-radius: 10px;
+      border-width: 1px;
+      font-size: 15px;
+      flex-grow: 1;
+    }
+
+    .chat-input-container {
+      display: flex;
+      margin-bottom: 60px;
+
+    }
+
+    .app-container {
+      max-width: 600px;
+      margin-right: auto;
+      margin-left: auto;
+
+      height: 100vh;
+      /* vh means viewport height, 100% of the height of the browser*/
+      display: flex;
+      flex-direction: column;
+    }
+
+    .chat-message-user {
+      display: flex;
+      justify-content: end;
+      align-items: start;
+    }
+
+    .chat-message-robot {
+      display: flex;
+      align-items: start;
+
+    }
+
+    .chat-message-text {
+      background-color: rgb(238, 238, 238);
+      padding: 15px 20px;
+      border-radius: 13px;
+      margin-right: 10px;
+      margin-left: 10px;
+      margin-bottom: 20px;
+      max-width: 300px;
+    }
+
+    .chat-profile {
+      width: 45px;
+    }
+
+    .chatMessages-container {
+      flex-grow: 1;
+      margin-top: 20px;
+      overflow: scroll;
+      /* A scroll feature in CSS that let's you scrol messages when there is too many.*/
+      scrollbar-width: none;
+    }
+  </style>
+
 </head>
 
 <body>
@@ -51,16 +129,20 @@
       }
 
       return (
-        <> {/*Using to div to group multiple elements actually create a bunch of extra div. How to Avoid that? Using a fragment*/}
+        <div className="chat-input-container"> {/*Using to div to group multiple elements actually create a bunch of extra div. How to Avoid that? Using a fragment*/}
           <input
             placeholder="Send a message to chatbot"
             size="30"
             onChange={saveInputText} //event handler that runs a function when we change a text inside an <input/>. we use curly brackets here because we wanna save function inside this prop rather than just a string
             value={inputText} //This is a prop, a controlled input. Means input field's value is controlled by react state. Hence, clears the input whenever pressed send.
+            className="chat-input"
           />
           <button
-            onClick={sendMessage}>Send</button>
-        </>
+            onClick={sendMessage}
+            className="send-button">
+            Send
+          </button>
+        </div>
 
       );
     }
@@ -82,21 +164,42 @@
         This code is the longcut version of code below.
       */
       return (
-        <div>
+        <div className={
+          sender === 'user' ?
+            'chat-message-user'
+            : 'chat-message-robot '}> {/*Can use conditional statement as className in JSX*/}
+
           {sender === 'robot' &&
-            <img src="images/robot.png" width="50" />} {/*Called as Guard Operator, If left is true then do the right. It's just like an if statement but in JSX.*/}
-          {message}
+            <img src="images/robot.png" className="chat-profile" />} {/*Called as Guard Operator, If left is true then do the right. It's just like an if statement but in JSX.*/}
+          <div className="chat-message-text">
+            {message}
+          </div>
           {sender === 'user' &&
-            <img src="images/user.png" width="50" />}
+            <img src="images/user.png" className="chat-profile" />}
 
         </div>
       );
     };
 
+
     function ChatMessages({ chatMsg }) {//This function includes all chat related data. Generates all the HTML. This function is an example of component encapsulation.
 
+      const chatMsgRef = React.useRef(null); //automatically save an HTML element from the component. ref is a container with special react feature. Null is the initial value, it will start as empty.
+
+      //Do not put hooks inside anything like if statement or function. Put hooks at the top of the component.
+      React.useEffect(() => {
+        const containerElem = chatMsgRef.current;
+        if (containerElem) {
+          containerElem.scrollTop = containerElem.scrollHeight;
+          //scrolls all the way down to the bottom.
+        }
+      }, [chatMsg]); // useEffect runs everytime the component is created or updated, let's us insert special effects from react.
+      //
+      //2nd parameter(array) called dependency array controls when useEffect runs. Epmty array means run once.
+
       return (
-        <>
+        <div className="chatMessages-container"
+          ref={chatMsgRef}>
           {chatMsg.map((chatMessage) => {
             return (
               <ChatMessage
@@ -106,7 +209,7 @@
               />
             );
           })}
-        </>
+        </div>
       );
     }
 
@@ -152,15 +255,12 @@
 
 
       return (
-        <>
+        <div className="app-container">
 
           { /*{ChatInput()}
               <ChatInput></ChatInput> Called as Component Syntax, does the same thing as the code above.*/ }
 
-          <ChatInput
-            chatMsg={chatMsg} //{} = save any type of value inside prop
-            setChatMessages={setChatMessages}
-          /> {/* Can also do this kind of syntax if element has no value. Called as Self closing  
+          {/* Can also do this kind of syntax if element has no value. Called as Self closing  
           <ChatMessage
             message="hello"
             sender="user" />
@@ -178,7 +278,12 @@
             chatMsg={chatMsg}
           />
 
-        </>
+          <ChatInput
+            chatMsg={chatMsg} //{} = save any type of value inside prop
+            setChatMessages={setChatMessages}
+          />
+
+        </div>
       );
     }
     //App Component represent the entire application.
@@ -204,5 +309,7 @@
 
 -State in React doesn’t update instantly, React schedules it.
 
-NEXT: 2:10
+- HOOKS - one of the most important feature in react, it let's you insert react features into our component.
+
+NEXT: 3:20
 -->

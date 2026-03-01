@@ -11,34 +11,55 @@
   <script src="https://unpkg.com/supersimpledev/react.js"></script>
   <script src="https://unpkg.com/supersimpledev/react-dom.js"></script>
 
+  <script src="https://unpkg.com/supersimpledev/chatbot.js"></script>
   <script src="https://unpkg.com/supersimpledev/babel.js"></script>
+  <script src="https://unpkg.com/supersimpledev/dayjs.js"></script>
 
   <script type="text/babel">
 
+    /* EXERCISE 4A
+        function App() {
+          const [showPassword, setShowPass] = React.useState(true);
+    
+          function showPass() {
+            if (showPassword) {
+              return setShowPass(false)
+            } else {
+              return setShowPass(true)
+            }
+          }
+    
+    
+          return (
+            <>
+              <div>
+                <input placeholder="Email"></input>
+              </div>
+              <div>
+                <input type={showPassword ? "password" : "text"} placeholder="Password"></input>
+                <button
+                  onClick={showPass}>
+                  {showPassword ? "show" : "hide"}
+                </button>
+              </div>
+              <div>
+                <button>Login</button>
+                <button>Signup</button>
+              </div>
+            </>
+    
+          )
+        }
+    
+    
+    
+        const container = document.querySelector('.container');
+        ReactDOM.createRoot(container).render(<App />);
+        */
 
-    function App() {
-      const [showPassword, setShowPass] = useState.react(true);
 
-      return (
-        <>
-          <div>
-            <input placeholder="Email"></input>
-          </div>
-          <div>
-            <input placeholder="Password"></input>
-            <button>Show</button>
-          </div>
-          <div>
-            <button>Login</button>
-            <button>Signup</button>
-          </div>
-        </>
 
-      )
-    }
 
-    const container = document.querySelector('.container');
-    ReactDOM.createRoot(container).render(<App />);
   </script>
 </body>
 

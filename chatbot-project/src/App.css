@@ -1,0 +1,10 @@
+.app-container {
+  max-width: 600px;
+  margin-right: auto;
+  margin-left: auto;
+
+  height: 100vh;
+  /* vh means viewport height, 100% of the height of the browser*/
+  display: flex;
+  flex-direction: column;
+}

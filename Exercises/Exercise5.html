@@ -15,9 +15,32 @@
   <script type="text/babel">
 
 
-    function App() {
-      return (<button>Click</button>)
 
+    function App() {
+      const [count, setCount] = React.useState(0);
+      const buttonRef = React.useRef();
+
+      function AutoClick() {
+        setInterval(() => {
+          const buttonElem = buttonRef.current
+
+          if (buttonElem) {
+            buttonElem.click();
+          }
+        }, 1000)
+      }
+
+
+      return (
+        <>
+          <button className="isClick"
+            onClick={() => { setCount(count + 1) }}
+            ref={buttonRef}>
+            Clicked {count} {count <= 1 ? "time" : "times"}</button>
+          <button onClick={() => { setCount(0) }}>Reset</button>
+          <button onClick={AutoClick}>Auto Click</button>
+        </>
+      )
     }
     const container = document.querySelector(".container");
     ReactDOM.createRoot(container).render(<App />);

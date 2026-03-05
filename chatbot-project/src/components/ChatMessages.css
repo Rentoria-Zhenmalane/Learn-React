@@ -1,0 +1,7 @@
+.chatMessages-container {
+  flex-grow: 1;
+  margin-top: 20px;
+  overflow: scroll;
+  /* A scroll feature in CSS that let's you scrol messages when there is too many.*/
+  scrollbar-width: none;
+}

@@ -2,6 +2,8 @@ import { useRef, useEffect } from 'react';
 import { ChatMessage } from './ChatMessage';
 import './ChatMessages.css';
 
+
+//displays all messages
 function ChatMessages({ chatMsg }) {//This function includes all chat related data. Generates all the HTML. This function is an example of component encapsulation.
 
   const chatMsgRef = useRef(null); //automatically save an HTML element from the component. ref is a container with special react feature. Null is the initial value, it will start as empty.

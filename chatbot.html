@@ -117,7 +117,7 @@
         console.log(response);
 
         setChatMessages([
-          ...newChatMessages,//Called as Spread Operator, in React modifying data is a must not. So use Spread operator to copy and modify the data.
+          ...newChatMessages,
           {
             message: response,
             sender: 'robot',

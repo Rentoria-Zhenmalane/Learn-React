@@ -2,6 +2,9 @@ import RobotProfileImage from '../assets/robot.png';
 import UserProfileImage from '../assets/shane.jpg'; // .. means going out of this specific folder to got to assets folder then locate the images
 import './ChatMessage.css';
 
+
+//Message bubble
+
 export function ChatMessage({ message, sender })// also called destructuring, even shorter syntax in JS.
 {
   {/*-Components are designed to be reusable

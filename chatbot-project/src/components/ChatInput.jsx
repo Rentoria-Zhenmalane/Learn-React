@@ -2,7 +2,7 @@ import { useState } from 'react'
 import { Chatbot } from 'supersimpledev';
 import './ChatInput.css';
 
-
+//where you type and send
 export function ChatInput({ chatMsg, setChatMessages }) {
   const [inputText, setInputText] = useState('');
 
@@ -20,7 +20,7 @@ export function ChatInput({ chatMsg, setChatMessages }) {
       }// This object adds new data to chatMsg
     ]
 
-    setChatMessages(newChatMessages);
+    setChatMessages(newChatMessages);//updates React state memory for that component.
 
     const response = Chatbot.getResponse(inputText);
     console.log(response);
@@ -36,6 +36,7 @@ export function ChatInput({ chatMsg, setChatMessages }) {
 
     setInputText(''); //why use updater function instead of inputText? inputText is just the data/value, in React you can't mutate data directly and also const is in use. An updater function or a setter handles the changes of data/value and updates, that's why it's called updater funtion.  
   }
+
 
   return (
     <div className="chat-input-container"> {/*Using to div to group multiple elements actually create a bunch of extra div. How to Avoid that? Using a fragment*/}

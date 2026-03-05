@@ -1,11 +1,12 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { ChatInput } from './components/ChatInput';
 import ChatMessages from './components/ChatMessages'; // called as default export
+import { Chatbot } from 'supersimpledev';
 
 import './App.css' //feature of Vite is to let us import ay kind of file
 
 
-
+//Holds everything together
 function App() {
 
   {/*
@@ -44,7 +45,14 @@ function App() {
         Function that updates data. 
         const[chatMsg, setChatMessages] = array; //Called Array Destructuring, shortcut of the code above.*/}
 
-
+  useEffect(() => { //adds a new response from chatbot
+    Chatbot.addResponses({ // external chatbot system from supersimpledev.
+      'Goodbye. Have a great day!': 'goodbye',
+      'give me a unique id': function () {
+        return `Sure! Here's a unique ID: ${crypto.randomUUID()}`;
+      }
+    })
+  }, []); // empty array is called dependency array, means run this effect when the component first loads
 
   return (
     <div className="app-container">
@@ -74,7 +82,7 @@ function App() {
         chatMsg={chatMsg} //{} = save any type of value inside prop
         setChatMessages={setChatMessages}
       />
-
+      {/* This is called a lifting the state up*/}
     </div>
   );
 }
